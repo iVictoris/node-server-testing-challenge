@@ -3,11 +3,13 @@ const db = require("../knex.config");
 const table = "users";
 
 const find = () => {
-  return null;
+  return db(table);
 };
 
 const findById = id => {
-  return null;
+  return db(table)
+    .where({ id })
+    .first();
 };
 
 const findByUsername = username => {
@@ -15,15 +17,20 @@ const findByUsername = username => {
 };
 
 const update = (id, changes) => {
-  return null;
+  return db(table)
+    .where({ id })
+    .update(changes);
 };
 
-const add = model => {
-  return null;
+const add = async model => {
+  const [id] = await db(table).insert(model);
+  return findById(id);
 };
 
 const remove = id => {
-  return null;
+  return db(table)
+    .where({ id })
+    .del();
 };
 
 module.exports = {
